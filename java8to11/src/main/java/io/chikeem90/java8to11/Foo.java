@@ -1,38 +1,20 @@
 package io.chikeem90.java8to11;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntConsumer;
-import java.util.function.Predicate;
+public interface Foo {
 
-public class Foo {
-    public static void main(String[] args) {
-        Foo foo = new Foo();
-        foo.run();
+    void printName();
+
+    /**
+     * @implSpec
+     * 이 구현체는 getName()으로 으로 가져온 문자열을 대문자로 바꿔 출력한다.
+     */
+    default void printNameUpperCase() {
+        System.out.println(getName().toUpperCase());
     }
 
-    private void run() {
-        int baseNumber = 10;
-
-        // 로컬 클래스
-        class LocalClass {
-            void printBaseNumber() {
-                // 외부에 선언된 변수 baseNumber를 가린다.
-                int baseNumber = 11;
-                System.out.println(baseNumber);
-            }
-        }
-
-        // 익명 클래스
-        Consumer<Integer> integerConsumer = new Consumer<Integer>() {
-            @Override
-            // 외부에 선언된 변수 baseNumber를 가린다.
-            public void accept(Integer baseNumber) {
-                System.out.println(baseNumber);
-            }
-        };
-
-        IntConsumer printInt = (i) -> System.out.println(i + baseNumber);
-        printInt.accept(10);
+    static void printAnything() {
+        System.out.println("Foo");
     }
+
+    String getName();
 }

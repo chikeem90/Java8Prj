@@ -1,5 +1,6 @@
 package io.chikeem90.java8to11;
 
+import java.util.Optional;
 import java.util.function.IntConsumer;
 
 public class OnlineClass {
@@ -8,6 +9,8 @@ public class OnlineClass {
     private String title;
 
     private boolean closed;
+
+    public Progress progress;
 
     public OnlineClass(Integer id, String title, boolean closed) {
         this.id = id;
@@ -39,12 +42,11 @@ public class OnlineClass {
         this.closed = closed;
     }
 
-    @Override
-    public String toString() {
-        return "OnlineClass{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", closed=" + closed +
-                '}';
+    public Optional<Progress> getProgress() {
+        return Optional.ofNullable(progress);
+    }
+
+    public void setProgress(Optional<Progress> progress) {
+        progress.ifPresent(p -> this.progress = p);
     }
 }

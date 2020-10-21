@@ -4,23 +4,21 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
-        List<String> name = new ArrayList<>();
-        name.add("keesun");
-        name.add("whiteship");
-        name.add("toby");
-        name.add("foo");
-//        name.forEach(System.out::println);
-//        Spliterator<String> spliterator = name.spliterator();
-//        Spliterator<String> spliterator1 = spliterator.trySplit();
-//        while (spliterator.tryAdvance(System.out::println));
-//        System.out.println("=======================");
-//        while (spliterator1.tryAdvance(System.out::println));
-//        name.removeIf(s -> s.startsWith("k"));
-        Comparator<String> compareToIgnoreCase = String::compareToIgnoreCase;
-        name.sort(compareToIgnoreCase.reversed());
-        name.forEach(System.out::println);
+        List<String> names = new ArrayList<>();
+        names.add("keesun");
+        names.add("whiteship");
+        names.add("toby");
+        names.add("foo");
+
+        List<String> collect = names.parallelStream().map(s -> {
+            System.out.println(s + " " + Thread.currentThread().getName());
+            return s.toUpperCase();
+        }).collect(Collectors.toList());
+        collect.forEach(System.out::println);
     }
 }
